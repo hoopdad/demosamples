@@ -1,0 +1,31 @@
+
+az ad sp create-for-rbac --role="Contributor" --scopes="/subscriptions/<subsid>"
+
+{
+  "appId": "`",
+  "displayName": "whatever",
+  "password": "`",
+  "tenant": "`"
+}
+
+$Env:ARM_CLIENT_ID = "`"
+$Env:ARM_CLIENT_SECRET = "`"
+$Env:ARM_SUBSCRIPTION_ID = ""
+$Env:ARM_TENANT_ID = "`"
+
+
+
+
+terraform import azurerm_resource_group.<RGNAME> /subscriptions/<subsid>/resourceGroups/<RGNAME>
+terraform import azurerm_resource_group.rg /subscriptions/<subsid>/resourceGroups/<RGNAME>
+
+terraform import azurerm_service_plan.asp /subscriptions/<subsid>/resourceGroups/<RGName>/providers/Microsoft.Web/serverFarms/<AppServicePlanName>
+
+az appservice plan show --name <AppServicePlanName> --resource-group <RGName> --query id --output tsv
+
+aztfexport resource -o tempdir --hcl-only /subscriptions/<subsid>/resourceGroups/<RGName>/providers/Microsoft.Web/sites/<AppName>
+aztfexport resource -o tempdir --hcl-only /subscriptions/<subsid>/resourceGroups/<RGName>/providers/Microsoft.Web/sites/<AppName>
+
+terraform import azurerm_resource_group.rg /subscriptions/<subsid>/resourceGroups/<RGName>
+terraform import azurerm_service_plan.appserviceplan /subscriptions/<subsid>/resourceGroups/<RGName>/providers/Microsoft.Web/serverfarms/<AppServicePlanName>
+terraform import azurerm_windows_web_app.webapp /subscriptions/<subsid>/resourceGroups/<RGName>/providers/Microsoft.Web/sites/<appName>
